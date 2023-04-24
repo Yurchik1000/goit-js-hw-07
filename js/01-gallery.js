@@ -13,7 +13,7 @@ function renderGallery(galleryItems) {
 return galleryItems
  .map(({ preview, original, description }) => {
   return `<li class='gallery__item'>
-      <a class='gallery__link' href='${original.value}'>
+      <a class='gallery__link' href='${original}'>
       <img
         class='gallery__image'
         src='${preview}'
@@ -38,15 +38,19 @@ galleryContainer.addEventListener('click', (e) => {
     
   }
 })
-const handleKeyPress = (e) => {
- if (e.code === "Escape") {
-  instance.close();
-  // instance
-  //  .element()
-  //  .removeEventListener("keydown", handleKeyPress);
- }
-};
 
 
-
-
+ const handleKeyPress = (event) => {
+  if (event.code === "Escape") {
+   instance.close();
+   instance
+    .element()
+    .removeEventListener(
+     "keydown",
+     handleKeyPress
+    );
+  }
+  instance
+   .element()
+   .addEventListener("keydown", handleKeyPress);
+ };
