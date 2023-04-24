@@ -30,27 +30,25 @@ galleryContainer.addEventListener('click', (e) => {
   e.preventDefault();
   if (e.target.tagName === 'IMG') {
     const source = e.target.dataset.source;
-  const instance = basicLightbox.create(`
+    const instance = basicLightbox.create(`
     <img src="${source}" width="800" height="600">
 `);
 
     instance.show();
-    
+  
+  
+  
+  
   }
-})
 
 
- const handleKeyPress = (event) => {
-  if (event.code === "Escape") {
-   instance.close();
-   instance
-    .element()
-    .removeEventListener(
-     "keydown",
-     handleKeyPress
-    );
+
+  const handleKeyPress = (event) => {
+    if (event.code === "Escape") {
+      instance.close();
+      instance.element().removeEventListener("keydown", handleKeyPress);
+    }
+
+    instance.element().addEventListener("keydown", handleKeyPress);
   }
-  instance
-   .element()
-   .addEventListener("keydown", handleKeyPress);
- };
+});

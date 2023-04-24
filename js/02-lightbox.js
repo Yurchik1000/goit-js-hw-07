@@ -20,7 +20,6 @@ function renderGallery(galleryItems) {
       <img
         class='gallery__image'
         src='${preview}'
-        
         alt='${description}'/>
       </a>
       </li>`;
