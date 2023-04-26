@@ -9,6 +9,8 @@ const createRenderGallery = renderGallery(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', createRenderGallery);
 
+let instance;
+
 function renderGallery(galleryItems) {
 return galleryItems
  .map(({ preview, original, description }) => {
@@ -28,27 +30,25 @@ return galleryItems
 
 galleryContainer.addEventListener('click', (e) => {
   e.preventDefault();
-  if (e.target.tagName === 'IMG') {
-    const source = e.target.dataset.source;
-    const instance = basicLightbox.create(`
-    <img src="${source}" width="800" height="600">
-`);
+  if (e.target.nodeName !== 'IMG') {
+    return;
+  }
+  const source = e.target.dataset.source;
+  instance = basicLightbox.create(`<img src="${source}" width="800" height="600">`,
+  {
+    onShow: (instance) => window.addEventListener("keydown", handleKeyPress),
+    onClose: (instance) => window.removeEventListener("keydown", handleKeyPress),
+  }
+  
+  );
 
     instance.show();
   
-  
-  
-  
+  })
+
+
+function handleKeyPress (event)  {
+  if (event.code === "Escape") {
+    instance.close();
   }
-
-
-
-  const handleKeyPress = (event) => {
-    if (event.code === "Escape") {
-      instance.close();
-      instance.element().removeEventListener("keydown", handleKeyPress);
-    }
-
-    instance.element().addEventListener("keydown", handleKeyPress);
-  }
-});
+}

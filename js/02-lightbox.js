@@ -29,7 +29,7 @@ function renderGallery(galleryItems) {
 
 
 const lightbox = new SimpleLightbox(
- ".gallery a",
+ ".gallery__link",
  {
   captionsData: "alt",
   caption: true,
